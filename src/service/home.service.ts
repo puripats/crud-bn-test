@@ -43,7 +43,6 @@ export class HomeService {
     const query = 'INSERT INTO home (name, post_code, price, "desc") VALUES ($1, $2, $3, $4)'
     result = await db.query(query, queryParams)
     console.log(`Note successfully inserted: ${name}`)
-    console.info(result);
     return result
   } catch (err) {
     console.info(err)
@@ -54,14 +53,12 @@ export class HomeService {
   public update =  async(body: any, id: any) => {
     try {
       const { name, post_code, price, desc }:HomeCreate = body;
-      console.info(price);
       const queryParams = [name, post_code, price, desc];
       if (!name || !post_code || !price || !desc) {
         const error = new Error('Missing params')
         return error
       }
       const query = 'UPDATE home SET name = $1, post_code = $2, price = $3, "desc" = $4 '+`WHERE id = ${id}`;
-      console.info(query);
       const result = await db.query(query, queryParams);
       return result;
     } catch (e){
